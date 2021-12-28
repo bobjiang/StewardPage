@@ -149,8 +149,8 @@ const Home: NextPage = () => {
     const network = await web3Provider.getNetwork();
 
     const gitcoinDaoInfo = await QueryAddressInfo(getApollo(), {
-      voterAddress: address,
-      // voterAddress: "0x521aacb43d89e1b8ffd64d9ef76b0a1074dedaf8",
+      voterAddress: address.toLocaleLowerCase(),
+      // voterAddress: 0x521aacB43d89E1b8FFD64d9eF76B0a1074dEdaF8 "0x521aacb43d89e1b8ffd64d9ef76b0a1074dedaf8",
     });
 
     dispatch({
