@@ -1,9 +1,15 @@
 import BN from "bn.js";
 import { useRecoilValueLoadable } from "recoil";
+import { TwitterShareButton, TwitterIcon } from "react-share";
 import { queryAddressInfo } from "../../selectors/gitcoin";
 
-const Gitcoin = () => {
-  const result = useRecoilValueLoadable(queryAddressInfo);
+const Gitcoin = ({ address }) => {
+  const result = useRecoilValueLoadable(
+    queryAddressInfo(address && address.toLowerCase())
+  );
+
+  const shareUrl = `https://fancy-cell-9975.on.fleek.co/delegate/${address}`;
+  const title = `Thanks for supporting my @gitcoin Steward, please delegate ${address} `;
 
   switch (result.state) {
     case "hasValue":
@@ -49,11 +55,21 @@ const Gitcoin = () => {
                   </div>
                   <div className="text-center text-gray-500">Total tokens</div>
                 </div>
+                <div className="w-40">
+                  <TwitterShareButton
+                    url={shareUrl}
+                    title={title}
+                    className="Demo__some-network__share-button"
+                  >
+                    <TwitterIcon size={32} round />
+                  </TwitterShareButton>
+                </div>
               </div>
             </div>
           </div>
+
           <div className="flex flex-row-reverse">
-            <div className="flex flex-col flex-none h-64 w-72 bg-gray-50">
+            <div className="flex flex-col flex-none w-72 bg-gray-50">
               <div className="p-5">
                 <div>
                   <p className="text-xl leading-7 text-purple-900">

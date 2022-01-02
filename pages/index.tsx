@@ -11,9 +11,9 @@ const Home: NextPage = () => {
   const { address } = useRecoilValue(walletState);
 
   return (
-    <div>
+    <div className="container mx-auto">
       <Connect />
-      {address && <Gitcoin />}
+      {address && <Gitcoin address={address} />}
     </div>
   );
 };
