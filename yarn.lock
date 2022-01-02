@@ -3532,6 +3532,11 @@ graphql@^16.2.0:
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-16.2.0.tgz#de3150e80f1fc009590b92a9d16ab1b46e12b656"
   integrity sha512-MuQd7XXrdOcmfwuLwC2jNvx0n3rxIuNYOxUtiee5XOmfrWo613ar2U8pE7aHAKh8VwfpifubpD9IP+EdEAEOsA==
 
+hamt_plus@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/hamt_plus/-/hamt_plus-1.0.2.tgz#e21c252968c7e33b20f6a1b094cd85787a265601"
+  integrity sha1-4hwlKWjH4zsg9qGwlM2FeHomVgE=
+
 har-schema@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/har-schema/-/har-schema-2.0.0.tgz#a94c2224ebcac04782a0d9035521f24735b7ec92"
@@ -5428,6 +5433,13 @@ readdirp@~3.6.0:
   integrity sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==
   dependencies:
     picomatch "^2.2.1"
+
+recoil@^0.5.2:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/recoil/-/recoil-0.5.2.tgz#61fecce3b4dc91127a595586cf7369e2811ba024"
+  integrity sha512-Edibzpu3dbUMLy6QRg73WL8dvMl9Xqhp+kU+f2sJtXxsaXvAlxU/GcnDE8HXPkprXrhHF2e6SZozptNvjNF5fw==
+  dependencies:
+    hamt_plus "1.0.2"
 
 regenerator-runtime@0.13.4:
   version "0.13.4"
