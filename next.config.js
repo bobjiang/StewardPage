@@ -4,6 +4,7 @@ module.exports = {
   exportPathMap: function () {
     return {
       "/": { page: "/" },
+      "/vote": { page: "/vote" },
       "/delegate/vote": { page: "/delegate/vote" },
     };
   },
