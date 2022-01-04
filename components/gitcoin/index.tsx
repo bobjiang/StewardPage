@@ -2,13 +2,14 @@ import BN from "bn.js";
 import { useRecoilValueLoadable } from "recoil";
 import { TwitterShareButton, TwitterIcon } from "react-share";
 import { queryAddressInfo } from "../../selectors/gitcoin";
+import { FLEEK_URL } from "../../constants/fleek";
 
 const Gitcoin = ({ address }) => {
   const result = useRecoilValueLoadable(
     queryAddressInfo(address && address.toLowerCase())
   );
 
-  const shareUrl = `https://fancy-cell-9975.on.fleek.co/delegate/vote?address=${address}`;
+  const shareUrl = `${FLEEK_URL}/delegate/vote?address=${address}`;
   const title = `Thanks for supporting my @gitcoin Steward, please delegate ${address} `;
 
   switch (result.state) {
