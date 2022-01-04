@@ -14,7 +14,7 @@ const Delegate = () => {
   const router = useRouter();
   const { address } = router.query;
 
-  const [wallet, setWallet] = useRecoilState(walletState);
+  const [wallet] = useRecoilState(walletState);
 
   // console.log("provider11", provider);
   const { provider } = wallet;
@@ -58,6 +58,7 @@ const Delegate = () => {
       console.log("error", error);
       setIsOpen(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [provider]);
 
   return (

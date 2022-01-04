@@ -48,6 +48,7 @@ const Connect = () => {
       address,
       chainId: network.chainId,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const disconnect = useCallback(
@@ -55,6 +56,7 @@ const Connect = () => {
       await web3Modal.clearCachedProvider();
       setWallet(initialState);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [provider]
   );
 
