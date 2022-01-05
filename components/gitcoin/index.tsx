@@ -9,7 +9,7 @@ const Gitcoin = ({ address }) => {
     queryAddressInfo(address && address.toLowerCase())
   );
 
-  const shareUrl = `${FLEEK_URL}/delegate/vote?address=${address}`;
+  const shareUrl = `${FLEEK_URL}?address=${address}`;
   const title = `Thanks for supporting my @gitcoin Steward, please delegate ${address} `;
 
   switch (result.state) {
