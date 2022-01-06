@@ -21,11 +21,10 @@ const Gitcoin = ({ address }) => {
           <div className="flex items-stretch h-screen">
             <div className="self-center flex-1 text-center">
               <p className="text-5xl text-center text-red-500">
-                You have no $GTC or no voting power! <br />
-                Checking voting power by this <a href="https://gitcoin.co/quadraticlands/dashboard">link</a>.
+                You have no $GTC or voting power! <br />                
               </p>
             </div>
-          </div>
+          </div>          
         );
       const { votes, ballotsCastCount, tokenBalance } = account;
 
