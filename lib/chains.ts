@@ -193,6 +193,22 @@ const supportedChains: IChainData[] = [
       balance: '',
     },
   },
+  {
+    name: 'Polygon Mainnet',
+    short_name: 'Polygon',
+    chain: 'smartchain',
+    network: 'mainnet',
+    chain_id: 137,
+    network_id: 137,
+    rpc_url: 'https://polygon-rpc.com/',
+    native_currency: {
+      symbol: 'MATIC',
+      name: 'MATIC',
+      decimals: '18',
+      contractAddress: '',
+      balance: '',
+    },
+  },
 ]
 
 export default supportedChains

@@ -64,6 +64,9 @@ const Connect = () => {
     return (
       <div className="flex items-stretch h-screen">
         <div className="self-center flex-1 text-center">
+        <p className="text-5xl text-center text-green-500">
+          Welcome to StewardPage! <br /><br />
+        </p>
           <button
             className="w-48 p-4 font-bold text-white bg-indigo-600 rounded-full shadow-xl hover:bg-indigo-500"
             type="button"
