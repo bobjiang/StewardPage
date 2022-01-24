@@ -25,6 +25,7 @@ import TrendingUp from '@mui/icons-material/TrendingUp';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 import Text from './Text';
 import PageHeader from './PageHeader';
+import Delegate from "../../components/delegate";
 const AvatarWrapper = styled(Avatar)(
   ({ theme }) => `
         background: transparent;
@@ -99,17 +100,19 @@ const Gitcoin = ({ address }) => {
       new BN(votes).div(new BN(10).pow(new BN(18))).toString();
       return (
         <Container maxWidth="lg">
-        <PageHeader />
-        <Box
-          display="flex"
-          alignItems="center"
-          justifyContent="space-between"
-          sx={{ pb: 3 }}
-        >
-          <Typography variant="h5">My Organization</Typography>
-        </Box>
+        <Card sx={{ px: 1 }}>
+          <PageHeader />
+        </Card>
           <Grid container spacing={3}>
             <Grid xs={12} sm={6} md={3} item>
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="space-between"
+              sx={{ pb: 3 }}
+            >
+              <Typography variant="h5">My Organization</Typography>
+            </Box>
               <Card sx={{ px: 1 }}>
                 <CardContent>
                   <Typography variant="h5" noWrap>
@@ -166,9 +169,7 @@ const Gitcoin = ({ address }) => {
                       </Typography>
                       <Grid container spacing={3}>
                         <Grid sm item>
-                          <Button fullWidth variant="contained">
-                            DELEGATE VOTES
-                        </Button>
+                          <Delegate />
                         </Grid>
                       </Grid>
                     </Box>
