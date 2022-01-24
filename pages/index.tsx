@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
 
 import { walletState } from "../atoms/wallet";
-import SuccessAlert from "../components/alert/success";
+// import SuccessAlert from "../components/alert/success";
 import Gitcoin from "../components/gitcoin";
 import Dashboard from "../components/dashboard";
 
