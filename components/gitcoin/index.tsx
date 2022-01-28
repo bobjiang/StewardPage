@@ -20,66 +20,21 @@ import {
   ListItemAvatar,
   CardActionArea
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import TrendingUp from '@mui/icons-material/TrendingUp';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 import Text from './Text';
 import PageHeader from './PageHeader';
 import Delegate from "../../components/delegate";
-const AvatarWrapper = styled(Avatar)(
-  ({ theme }) => `
-        background: transparent;
-        margin-left: -${theme.spacing(0.5)};
-        margin-bottom: ${theme.spacing(1)};
-        margin-top: ${theme.spacing(2)};
-`
-);
+const mdTheme = createTheme();
 
-const AvatarAddWrapper = styled(Avatar)(
-  ({ theme }) => `
-        background: ${theme.palette.black};
-        color: ${theme.palette.primary.main};
-        width: ${theme.spacing(8)};
-        height: ${theme.spacing(8)};
-`
-);
 const Gitcoin = ({ address }) => {
   const result = useRecoilValueLoadable(
     queryAddressInfo(address && address.toLowerCase())
   );
-  const CardAddAction = styled(Card)(
-    ({ theme }) => `
-          border: ${theme.palette.primary.main} dashed 1px;
-          height: 100%;
-          color: ${theme.palette.primary.main};
 
-          .MuiCardActionArea-root {
-            height: 100%;
-            justify-content: center;
-            align-items: center;
-            display: flex;
-          }
-
-          .MuiTouchRipple-root {
-            opacity: .2;
-          }
-
-          &:hover {
-            border-color: ${theme.palette.black};
-          }
-  `
-  );
   const shareUrl = `${FLEEK_URL}?address=${address}`;
   const title = `Thanks for supporting my @gitcoin Steward, please delegate ${address} `;
-  const cryptoBalance = {
-    datasets: [
-      {
-        data: [20, 10, 40, 30],
-        backgroundColor: ['#ff9900', '#1c81c2', '#333', '#5c6ac0']
-      }
-    ],
-    labels: ['Bitcoin', 'Ripple', 'Cardano', 'Ethereum']
-  };
 
   switch (result.state) {
     case "hasValue":
@@ -99,6 +54,20 @@ const Gitcoin = ({ address }) => {
 
       new BN(votes).div(new BN(10).pow(new BN(18))).toString();
       return (
+        <ThemeProvider theme={mdTheme}>
+          <Box sx={{ display: 'flex' }}>
+          <Box
+            component="main"
+            sx={{
+              backgroundColor: (theme) =>
+                theme.palette.mode === 'light'
+                  ? theme.palette.grey[100]
+                  : theme.palette.grey[900],
+              flexGrow: 1,
+              height: '100vh',
+              overflow: 'auto',
+            }}
+          >
         <Container maxWidth="lg">
         <Card sx={{ px: 1 }}>
           <PageHeader />
@@ -225,7 +194,7 @@ const Gitcoin = ({ address }) => {
                                 {(
                                   ((itemBalance as any) / (tokenBalance as any)) *
                                   100
-                                ).toFixed(2) + "%"}
+                                ).toFixed(8) + "%"}
                                 </Typography>
                                 <Text color="success"></Text>
                               </Box>
@@ -253,6 +222,9 @@ const Gitcoin = ({ address }) => {
 
           </Grid>
         </Container>
+        </Box>
+      </Box>
+    </ThemeProvider>
       );
     case "loading":
       return <div>Loading...</div>;

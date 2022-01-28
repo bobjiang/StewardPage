@@ -128,11 +128,12 @@ const Connect = () => {
 
   return (
     <div className="container mx-auto ">
+    <br/>
       {address ? (
         <div className="flex flex-row-reverse">
           <div className="">
             <button
-              className="p-2 font-bold text-white rounded-full shadow-xl bg-amber-500 w-26"
+              className="btn btn-sm btn-error"
               type="button"
               onClick={disconnect}
             >

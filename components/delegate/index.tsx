@@ -92,8 +92,8 @@ const Delegate = () => {
       </div>
       <div className="flex justify-center">
         <div>
-          <button className="btn btn-primary" onClick={openModal}>
-            Delegate Vote
+          <button className="btn btn-sm btn-accent" onClick={openModal}>
+            Delegate To
           </button>
         </div>
       </div>

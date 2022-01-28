@@ -4,7 +4,7 @@ import { useRecoilState } from "recoil";
 import { walletState } from "../atoms/wallet";
 import SuccessAlert from "../components/alert/success";
 import Gitcoin from "../components/gitcoin";
-import Connect from "../components/connect";
+import Dashboard from "../components/dashboard";
 
 const Home = () => {
   const router = useRouter();
@@ -15,8 +15,7 @@ const Home = () => {
 
   return (
     <div className="container mx-auto">
-    <Connect />
-      <Gitcoin address={address} />
+      <Dashboard address={address} />
       {/* <SuccessAlert title="Vote" /> */}
     </div>
   );
