@@ -130,7 +130,7 @@ const Connect = () => {
     <div className="container mx-auto ">
     <br/>
       {address ? (
-        <div className="flex flex-row-reverse">
+        <div className="flex flex-row-reverse p-4">
           <div className="">
             <button
               className="btn btn-sm btn-error"
