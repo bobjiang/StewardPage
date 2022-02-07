@@ -45,22 +45,6 @@ export async function QueryAddressInfo(client = getApollo(), variables: any) {
   return data
 }
 
-// Restful API
-const request = async (url: RequestInfo, init?: RequestInit): Promise<any> => {
-  const json = await fetch(url, {
-    ...init,
-    headers: {
-      "content-type": "application/json",
-      Accept: "application/vnd.github.v3+json",
-      ...init?.headers,
-    },
-  }).then((res) => res.json())
-  if (!json) {
-    throw new Error(`Failed to fetch request of ${url}`)
-  }
-  return json
-}
-
 type Steward = {
   address: string
   name: string
