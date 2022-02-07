@@ -14,10 +14,10 @@ const Home = () => {
   const address = router.query.address || wallet.address;
 
   return (
-    <div className="container mx-auto">
+    <>
       <Dashboard address={address} />
       {/* <SuccessAlert title="Vote" /> */}
-    </div>
+    </>
   );
 };
 
