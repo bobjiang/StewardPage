@@ -1,11 +1,7 @@
 import React from "react"
 import { useRouter } from "next/router"
-import NextLink from "next/link"
-import { Card, Link, Typography } from "@mui/material"
 
 import Connect from "../../components/connect"
-import { useRecoilValueLoadable } from "recoil"
-import { queryAddressInfo } from "../../selectors/gitcoin"
 import Gitcoin from "../../components/gitcoin"
 
 const StewardDetail = () => {
