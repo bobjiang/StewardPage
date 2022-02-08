@@ -13,5 +13,6 @@ jobs:
     name: Pull
     timeout-minutes: 240
     steps:
+      - uses: actions/checkout@v2
       - name: Run pull-steward.sh
         run: ./scripts/pull-steward.sh
