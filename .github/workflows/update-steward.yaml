@@ -1,0 +1,14 @@
+name: "Pull Data"
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    name: Pull
+    timeout-minutes: 240
+    steps:
+      - name: Run pull-steward.sh
+        run: ./scripts/pull-steward.sh
