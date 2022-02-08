@@ -24,6 +24,7 @@ import { styled } from "@mui/material/styles"
 import Text from "./Text"
 import GitCoinHeader from "./PageHeader"
 import { walletState } from "../../atoms/wallet"
+import { queryStewardInfo } from "../../selectors/steward"
 
 const AvatarWrapper = styled(Avatar)(
   ({ theme }) => `
@@ -72,20 +73,35 @@ const Gitcoin = ({ address }) => {
   const result = useRecoilValueLoadable(
     queryAddressInfo(address && address.toLowerCase()),
   )
+  const steward = useRecoilValueLoadable(
+    queryStewardInfo(address?.toLowerCase()),
+    // queryStewardInfo("0x521aacb43d89e1b8ffd64d9ef76b0a1074dedaf8"),
+  )
+
   const shareUrl = `${FLEEK_URL}/steward/${address}`
   const title = `Thanks for supporting my @gitcoin Steward, please delegate ${address} `
 
-  if (result.state === "loading") {
+  if (result.state === "loading" || steward.state === "loading") {
     return <div>Loading...</div>
   }
 
-  if (result.state === "hasError") {
-    return result.contents
+  if (result.state === "hasError" || steward.state === "hasError") {
+    const error =
+      result.state === "hasError" ? result.contents : steward.contents
+    return (
+      <div>
+        Error: <Typography color="error.light">{error.message}</Typography>
+        <Typography color="error.dark">
+          {JSON.stringify(error.stack, null, 2)}
+        </Typography>
+      </div>
+    )
   }
 
-  const { account, delegators } = result?.contents
+  const { account, delegators } = result?.contents ?? {}
+  const { name = address, image, statement_link } = steward?.contents ?? {}
 
-  if (!account) {
+  if (!account || !statement_link) {
     return (
       <div className="h-screen flex justify-center">
         <div className="container sm:mt-16">
@@ -110,7 +126,7 @@ const Gitcoin = ({ address }) => {
 
   return (
     <Container maxWidth="lg">
-      <GitCoinHeader isMySelf={isMySelf} />
+      <GitCoinHeader isMySelf={isMySelf} name={name} avatar={image} />
       <Grid container spacing={3}>
         <Grid xs={12} sm={6} md={3} item>
           <Box
@@ -120,7 +136,7 @@ const Gitcoin = ({ address }) => {
             sx={{ pb: 3 }}
           >
             <Typography variant="h5">
-              {isMySelf ? "My Organization" : `${address}'s Organization`}
+              {isMySelf ? "My Organization" : `${name}'s Organization`}
             </Typography>
           </Box>
           <Card sx={{ px: 1 }}>
@@ -142,11 +158,14 @@ const Gitcoin = ({ address }) => {
         display="flex"
         alignItems="center"
         justifyContent="space-between"
-        sx={{ py: 3 }}
+        sx={{ py: 3, gap: 4 }}
       >
         <Typography variant="h5">
-          {isMySelf ? "My Info" : `Info of ${address}`}
+          {isMySelf ? "My Info" : `Info of ${name}`}
         </Typography>
+        <NextLink href={statement_link} passHref>
+          <Link underline="hover" target="_blank">Statement Link</Link>
+        </NextLink>
       </Box>
       <Grid
         container
