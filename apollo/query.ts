@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client"
-import Papa from "papaparse"
+import StewardCsv from "../public/steward.csv"
 import { getApollo } from "./client"
 
 export const QueryAddressInfoGql = gql`
@@ -61,62 +61,25 @@ const request = async (url: RequestInfo, init?: RequestInit): Promise<any> => {
   return json
 }
 
-const token = process.env.NEXT_PUBLIC_GITHUB_TOKEN
+type Steward = {
+  address: string
+  name: string
+  statement_link: string
+  image: string
+}
 
-let stewardCSVCache
-export async function QueryStewardInfo(address: string) {
-  if (stewardCSVCache) {
-    const steward = stewardCSVCache.find(
-      (x) => x.address?.toLowerCase() === address.toLowerCase(),
-    )
-    return steward
-  }
-  const data = await request(
-    "https://api.github.com/repos/mmmgtc/stewards-v1.0/contents/app/assets/csv/stewards.csv",
-    // Use token to prevent github rate limit
-    {
-      headers: token
-        ? {
-            Authorization: `token ${token}`,
-          }
-        : {},
-    },
-  )
-  // CSV Headers
-  // "name", "image", "username", "handle_gitcoin", "statement_post_id", "steward_since",
-  // "address", "w_value", "Tally_participation_rate", "f_value ", "forum_post_count ", "workstream_name ",
-  // "votingweight ", "voteparticipation ", "weeks_steward ", "F_value", "snapshot_votes", "V_value", "Health_Scor"
-
-  // Decode base64
-  const content = Buffer.from(data.content, "base64").toString()
-  const parsed = Papa.parse(content, {
-    header: true,
-    transformHeader(header) {
-      // Change empty "" header to row
-      if (!header) {
-        return "row"
-      }
-      // Change post id to link
-      if (header === "statement_post_id") {
-        return "statement_link"
-      }
-      return header
-    },
-    transform(value, header) {
-      // Transform post_id to statement link
-      if (header === "statement_link") {
-        return `https://gov.gitcoin.co/t/introducing-stewards-governance/41/${value}`
-      }
-      // Transform image to content link
-      if (header === "image") {
-        return `https://raw.githubusercontent.com/mmmgtc/stewards-v1.0/main/app/assets/images/stewards/${value}`
-      }
-      return value
-    },
-  })
-  stewardCSVCache = parsed.data
-  const steward = stewardCSVCache.find(
-    (x) => x.address.toLowerCase() === address.toLowerCase(),
+const stewardCSVCache = StewardCsv.map((x: Steward) => ({
+  ...x,
+  row: x[""],
+  statement_link: `https://gov.gitcoin.co/t/introducing-stewards-governance/41/${x["statement_link"]}`,
+  image: `https://raw.githubusercontent.com/mmmgtc/stewards-v1.0/main/app/assets/images/stewards/${x["image"]}`,
+}))
+const getSteward = (address: string, stewards: Steward[]) => {
+  const steward = stewards.find(
+    (x) => x.address?.toLowerCase() === address.toLowerCase(),
   )
   return steward
+}
+export async function QueryStewardInfo(address: string) {
+  return getSteward(address, stewardCSVCache as Steward[])
 }

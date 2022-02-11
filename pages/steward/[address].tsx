@@ -10,14 +10,12 @@ import Gitcoin from "../../components/gitcoin"
 
 const StewardDetail = () => {
   const { query } = useRouter()
-  const address = query?.address as string | undefined
+  const address = query?.address as string
 
   return (
     <div className="container mx-auto pb-8">
       <Connect />
-      <Gitcoin
-        address={address}
-      />
+      <Gitcoin address={address} />
     </div>
   )
 }
