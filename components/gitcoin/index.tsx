@@ -164,7 +164,13 @@ const Gitcoin = ({ address }) => {
           {isMySelf ? "My Info" : `Info of ${name}`}
         </Typography>
         <NextLink href={statement_link} passHref>
-          <Link underline="hover" target="_blank">Statement Link</Link>
+          <Link
+            underline="hover"
+            target="_blank"
+            sx={{ display: "inline-flex", alignItems: "flex-end", gap: "3px" }}
+          >
+            Statement Link
+          </Link>
         </NextLink>
       </Box>
       <Grid
@@ -200,6 +206,7 @@ const Gitcoin = ({ address }) => {
                   </Typography>
                   <Grid container spacing={3}>
                     <Grid sm item>
+                      {/* TODO: Delegate directly to steward */}
                       <Button fullWidth variant="contained">
                         DELEGATE VOTES
                       </Button>
