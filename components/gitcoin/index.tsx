@@ -12,7 +12,6 @@ import {
   Box,
   Grid,
   Typography,
-  Avatar,
   Divider,
   ListItem,
   ListItemText,
@@ -20,52 +19,10 @@ import {
   Link,
   Stack,
 } from "@mui/material"
-import { styled } from "@mui/material/styles"
 import Text from "./Text"
 import GitCoinHeader from "./PageHeader"
 import { walletState } from "../../atoms/wallet"
 import { queryStewardInfo } from "../../selectors/steward"
-
-const AvatarWrapper = styled(Avatar)(
-  ({ theme }) => `
-        background: transparent;
-        margin-left: -${theme.spacing(0.5)};
-        margin-bottom: ${theme.spacing(1)};
-        margin-top: ${theme.spacing(2)};
-`,
-)
-
-const AvatarAddWrapper = styled(Avatar)(
-  ({ theme }) => `
-        background: ${theme.palette.black};
-        color: ${theme.palette.primary.main};
-        width: ${theme.spacing(8)};
-        height: ${theme.spacing(8)};
-`,
-)
-
-const CardAddAction = styled(Card)(
-  ({ theme }) => `
-        border: ${theme.palette.primary.main} dashed 1px;
-        height: 100%;
-        color: ${theme.palette.primary.main};
-
-        .MuiCardActionArea-root {
-          height: 100%;
-          justify-content: center;
-          align-items: center;
-          display: flex;
-        }
-
-        .MuiTouchRipple-root {
-          opacity: .2;
-        }
-
-        &:hover {
-          border-color: ${theme.palette.black};
-        }
-`,
-)
 
 const Gitcoin = ({ address }) => {
   const [{ address: connectAddress }] = useRecoilState(walletState)
