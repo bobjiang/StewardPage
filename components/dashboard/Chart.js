@@ -89,7 +89,7 @@ export default function Chart() {
           label="Votes"
         >
           {data.map((entry, index) => (
-            <Cell fill={data[index].color} />
+            <Cell fill={data[index].color} key={entry?.Text ?? index} />
           ))}
         </Bar>
       </BarChart>
