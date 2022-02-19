@@ -1,11 +1,9 @@
 import BN from "bn.js"
 import { useRecoilState, useRecoilValueLoadable } from "recoil"
 import { TwitterShareButton, TwitterIcon } from "react-share"
-import { queryAddressInfo } from "../../selectors/gitcoin"
-import { FLEEK_URL } from "../../constants/fleek"
+import Image from "next/image"
 import NextLink from "next/link"
 import {
-  Button,
   Container,
   Card,
   CardContent,
@@ -19,10 +17,12 @@ import {
   Link,
   Stack,
 } from "@mui/material"
-import Text from "./Text"
+import { queryAddressInfo } from "../../selectors/gitcoin"
+import { FLEEK_URL } from "../../constants/fleek"
 import GitCoinHeader from "./PageHeader"
 import { walletState } from "../../atoms/wallet"
 import { queryStewardInfo } from "../../selectors/steward"
+import Delegate from "../delegate"
 
 const Gitcoin = ({ address }) => {
   const [{ address: connectAddress }] = useRecoilState(walletState)
@@ -83,8 +83,14 @@ const Gitcoin = ({ address }) => {
 
   return (
     <Container maxWidth="lg">
-      <GitCoinHeader isMySelf={isMySelf} name={name} avatar={image} />
-      <Grid container spacing={3}>
+      <GitCoinHeader
+        isMySelf={isMySelf}
+        name={name}
+        avatar={image}
+        link={statement_link}
+      />
+
+      <Grid container spacing={3} mt={2}>
         <Grid xs={12} sm={6} md={3} item>
           <Box
             display="flex"
@@ -98,15 +104,21 @@ const Gitcoin = ({ address }) => {
           </Box>
           <Card sx={{ px: 1 }}>
             <CardContent>
-              <Typography variant="h5" noWrap>
-                Gitcoin
-              </Typography>
-              <Typography variant="subtitle1" noWrap>
+              <Box display="inline-flex" alignItems="center" gap={1}>
+                <Box height="24px" width="24px" position="relative">
+                  <Image src="/gitcoin.png" alt="GitCoin Logo" layout="fill" />
+                </Box>
+
+                <Typography variant="h5" noWrap>
+                  Gitcoin
+                </Typography>
+              </Box>
+              {/* <Typography variant="subtitle1" noWrap>
                 {new BN(tokenBalance)
                   .div(new BN(10).pow(new BN(18)))
                   .toString()}{" "}
                 GTC
-              </Typography>
+              </Typography> */}
             </CardContent>
           </Card>
         </Grid>
@@ -118,17 +130,8 @@ const Gitcoin = ({ address }) => {
         sx={{ py: 3, gap: 4 }}
       >
         <Typography variant="h5">
-          {isMySelf ? "My Info" : `Info of ${name}`}
+          {isMySelf ? "My Info" : `Info about ${name}`}
         </Typography>
-        <NextLink href={statement_link} passHref>
-          <Link
-            underline="hover"
-            target="_blank"
-            sx={{ display: "inline-flex", alignItems: "flex-end", gap: "3px" }}
-          >
-            Statement Link
-          </Link>
-        </NextLink>
       </Box>
       <Grid
         container
@@ -152,21 +155,20 @@ const Gitcoin = ({ address }) => {
                     Total votes:{" "}
                     {new BN(votes).div(new BN(10).pow(new BN(18))).toString()}
                   </Typography>
-                  <Typography sx={{ pb: 3 }} variant="h5">
+                  {/* <Typography sx={{ pb: 3 }} variant="h5">
                     Ballots: {ballotsCastCount}
-                  </Typography>
-                  <Typography sx={{ pb: 3 }} variant="h5">
+                  </Typography> */}
+                  {/* <Typography sx={{ pb: 3 }} variant="h5">
                     Delegate to:
-                  </Typography>
-                  <Typography sx={{ pb: 3 }} variant="h5">
+                  </Typography> */}
+                  {/* <Typography sx={{ pb: 3 }} variant="h5">
                     Self Delegation:
-                  </Typography>
+                  </Typography> */}
                   <Grid container spacing={3}>
                     <Grid sm item>
-                      {/* TODO: Delegate directly to steward */}
-                      <Button fullWidth variant="contained">
+                      <Delegate variant="contained" address={address} fullWidth>
                         DELEGATE VOTES
-                      </Button>
+                      </Delegate>
                     </Grid>
                   </Grid>
                 </Box>
@@ -208,27 +210,29 @@ const Gitcoin = ({ address }) => {
                           <ListItemText
                             primary={id}
                             primaryTypographyProps={{
-                              variant: "body1",
+                              variant: "h5",
                               fontWeight: "bold",
                               color: "textPrimary",
                               gutterBottom: true,
                               noWrap: true,
                             }}
-                            secondary={<Text color="success">ENS Name</Text>}
-                            secondaryTypographyProps={{
-                              variant: "body2",
-                              noWrap: true,
-                            }}
+                            // secondary={<Text color="success">ENS Name</Text>}
+                            // secondaryTypographyProps={{
+                            //   variant: "body2",
+                            //   noWrap: true,
+                            // }}
                           />
-                          <Box>
-                            <Typography align="right" variant="h5" noWrap>
-                              {(
-                                ((itemBalance as any) / (tokenBalance as any)) *
-                                100
-                              ).toFixed(2) + "%"}
-                            </Typography>
-                            <Text color="success"></Text>
-                          </Box>
+                          <Typography
+                            align="right"
+                            variant="subtitle1"
+                            color="success.main"
+                            noWrap
+                          >
+                            {(
+                              ((itemBalance as any) / (tokenBalance as any)) *
+                              100
+                            ).toFixed(2) + "%"}
+                          </Typography>
                         </ListItem>
                         <Divider />
                       </List>

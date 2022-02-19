@@ -1,7 +1,8 @@
-import { Typography, Avatar, Grid } from "@mui/material"
+import NextLink from "next/link"
+import { Typography, Avatar, Grid, Link } from "@mui/material"
 import { useTheme } from "@mui/material/styles"
 
-function GitCoinHeader({ isMySelf, name, avatar }) {
+function GitCoinHeader({ isMySelf, name, avatar, link }) {
   const theme = useTheme()
 
   return (
@@ -21,6 +22,12 @@ function GitCoinHeader({ isMySelf, name, avatar }) {
         {isMySelf && (
           <Typography variant="subtitle1">Welcome to your home!</Typography>
         )}
+
+        <NextLink href={link} passHref>
+          <Link underline="hover" target="_blank">
+            Statement Link
+          </Link>
+        </NextLink>
       </Grid>
     </Grid>
   )

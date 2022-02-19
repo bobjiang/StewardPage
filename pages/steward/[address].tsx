@@ -9,10 +9,13 @@ const StewardDetail = () => {
   const address = query?.address as string
 
   return (
-    <div className="container mx-auto pb-8">
-      <Connect />
-      <Gitcoin address={address} />
-    </div>
+    <>
+      {/* TODO: Add SEO */}
+      <div className="container mx-auto pb-8">
+        <Connect />
+        <Gitcoin address={address} />
+      </div>
+    </>
   )
 }
 
