@@ -16,6 +16,7 @@ import {
   List,
   Link,
   Stack,
+  Button,
 } from "@mui/material"
 import { queryAddressInfo } from "../../selectors/gitcoin"
 import { FLEEK_URL } from "../../constants/fleek"
@@ -24,6 +25,7 @@ import { walletState } from "../../atoms/wallet"
 import { queryStewardInfo, queryRecentVotes } from "../../selectors/steward"
 import Delegate from "../delegate"
 import RecentVotes from "./RecentVotes"
+import styles from "./gitcoin.module.css"
 
 const Gitcoin = ({ address }) => {
   const [{ address: connectAddress }] = useRecoilState(walletState)
@@ -275,12 +277,11 @@ const Gitcoin = ({ address }) => {
               <Typography variant="h5" align="center">
                 Get more delegators:{" "}
               </Typography>
-              <TwitterShareButton
-                url={shareUrl}
-                title={title}
-                className="Demo__some-network__share-button"
-              >
-                <TwitterIcon size={32} round />
+              <TwitterShareButton url={shareUrl} title={title}>
+                <Button className={styles.twitterButton}>
+                  <TwitterIcon size={32} />
+                  <Typography>Tweet it</Typography>
+                </Button>
               </TwitterShareButton>
             </Stack>
           </Card>
