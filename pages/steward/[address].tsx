@@ -3,6 +3,7 @@ import { useRouter } from "next/router"
 
 import Connect from "../../components/connect"
 import Gitcoin from "../../components/gitcoin"
+import { Container } from "@mui/material"
 
 const StewardDetail = () => {
   const { query } = useRouter()
@@ -11,10 +12,10 @@ const StewardDetail = () => {
   return (
     <>
       {/* TODO: Add SEO */}
-      <div className="container mx-auto pb-8">
+      <Container maxWidth="lg">
         <Connect />
         <Gitcoin address={address} />
-      </div>
+      </Container>
     </>
   )
 }

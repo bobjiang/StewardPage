@@ -30,13 +30,15 @@ import styles from "./gitcoin.module.css"
 const Gitcoin = ({ address }) => {
   const [{ address: connectAddress }] = useRecoilState(walletState)
   const isMySelf = connectAddress?.toLowerCase() === address?.toLowerCase()
-  const result = useRecoilValueLoadable(queryAddressInfo(address))
+  const result = useRecoilValueLoadable(
+    queryAddressInfo(address && address.toLowerCase()),
+  )
   const steward = useRecoilValueLoadable(
-    queryStewardInfo(address),
+    queryStewardInfo(address?.toLowerCase()),
     // queryStewardInfo("0x521aacb43d89e1b8ffd64d9ef76b0a1074dedaf8"),
   )
   const recentVotesRes = useRecoilValueLoadable(
-    queryRecentVotes(address),
+    queryRecentVotes(address?.toLowerCase()),
     // queryStewardInfo("0x521aacb43d89e1b8ffd64d9ef76b0a1074dedaf8"),
   )
 
@@ -48,7 +50,11 @@ const Gitcoin = ({ address }) => {
     steward.state === "loading" ||
     recentVotesRes.state === "loading"
   ) {
-    return <div>Loading...</div>
+    return (
+      <Container maxWidth="lg">
+        <Typography>Loading...</Typography>
+      </Container>
+    )
   }
 
   if (
@@ -91,14 +97,13 @@ const Gitcoin = ({ address }) => {
       </div>
     )
   }
-
-  const { votes, ballotsCastCount, tokenBalance } = account
-
+  // Taking votes from recentVoteRes
   const recentVotes = votesAccount.flatMap(({ participations }) =>
     participations
       .filter(({ votes }) => votes.length > 0)
       .flatMap(({ votes }) => votes),
   )
+  const { votes, ballotsCastCount, tokenBalance } = account
 
   return (
     <Container maxWidth="lg">
@@ -224,9 +229,10 @@ const Gitcoin = ({ address }) => {
                   </Typography>
                 </Box>
                 {delegators.map((item: any, index: any) => {
-                  const itemBalance = item.tokenBalance
+                  // Times 100 for percentage calculation
+                  const itemBalance = Number(item.tokenBalance) * 100
                   const id = item.id
-                  if (itemBalance == "0") return
+                  if (itemBalance === 0) return
 
                   return (
                     <Card key={id ?? index}>
@@ -255,8 +261,7 @@ const Gitcoin = ({ address }) => {
                             noWrap
                           >
                             {(
-                              ((itemBalance as any) / (tokenBalance as any)) *
-                              100
+                              itemBalance / 100000000000000000000000000
                             ).toFixed(2) + "%"}
                           </Typography>
                         </ListItem>
