@@ -203,12 +203,10 @@ const Dashboard = ({ address }) => {
                           .div(new BN(10).pow(new BN(18)))
                           .toString()}
                       </Typography>
-                      <Typography color="text.secondary" sx={{ flex: 1 }}>
+                      {/* <Typography color="text.secondary" sx={{ flex: 1 }}>
                         Ballots: {ballotsCastCount}
-                      </Typography>
-                      <div>
-                        <Delegate />
-                      </div>
+                      </Typography> */}
+                      <Delegate />
                     </React.Fragment>
                   </Paper>
                 </Grid>

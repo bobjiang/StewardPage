@@ -22,7 +22,12 @@ import { Box, Button, Typography } from "@mui/material"
 //   },
 // };
 
-const Connect = () => {
+type ConnectProps = {
+  noWelcome?: boolean
+  btnText?: string
+}
+
+const Connect = ({ noWelcome, btnText }: ConnectProps) => {
   // const [state, dispatch] = useReducer(reducer, initialState);
   const [wallet, setWallet] = useRecoilState(walletState)
 
@@ -62,7 +67,7 @@ const Connect = () => {
   )
 
   const connectWalletButton = () => {
-    return (
+    return !noWelcome ? (
       <Box
         sx={{
           display: "flex",
@@ -78,6 +83,10 @@ const Connect = () => {
         </Button>
         <Typography variant="h6">Welcome to StewardPage!</Typography>
       </Box>
+    ) : (
+      <Button size="large" type="button" variant="contained" onClick={connect}>
+        {btnText}
+      </Button>
     )
   }
 

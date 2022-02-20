@@ -1,7 +1,8 @@
-import type { AppProps } from "next/app";
-import { RecoilRoot } from "recoil";
-import ThemeProvider from '../styles/themeProvider';
-import GlobalStyles from '../styles/globalStyles';
+import type { AppProps } from "next/app"
+import { RecoilRoot } from "recoil"
+import ThemeProvider from "../styles/themeProvider"
+import GlobalStyles from "../styles/globalStyles"
+import { ToastContainer } from "react-toastify"
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -10,8 +11,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <RecoilRoot>
         <Component {...pageProps} />
       </RecoilRoot>
+      <ToastContainer />
     </ThemeProvider>
-  );
+  )
 }
 
-export default MyApp;
+export default MyApp
