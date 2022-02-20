@@ -19,8 +19,6 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline"
 import { abbreviateNumber } from "../../lib/utilities"
 
 const RecentVotes = ({ votes }) => {
-  console.log(votes)
-
   const voteItem = useMemo(() => {
     if (!votes || !votes.length) {
       return null

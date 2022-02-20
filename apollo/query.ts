@@ -208,7 +208,7 @@ type Steward = {
 const stewardCSVCache = StewardCsv.map((x: Steward) => ({
   ...x,
   row: x[""],
-  statement_link: `https://gov.gitcoin.co/t/introducing-stewards-governance/41/${x["statement_link"]}`,
+  statement_link: `https://gov.gitcoin.co/t/introducing-stewards-governance/41/${x["statement_post_id"]}`,
   image: `https://raw.githubusercontent.com/mmmgtc/stewards-v1.0/main/app/assets/images/stewards/${x["image"]}`,
 }))
 const getSteward = (address: string, stewards: Steward[]) => {
