@@ -28,15 +28,13 @@ import RecentVotes from "./RecentVotes"
 const Gitcoin = ({ address }) => {
   const [{ address: connectAddress }] = useRecoilState(walletState)
   const isMySelf = connectAddress?.toLowerCase() === address?.toLowerCase()
-  const result = useRecoilValueLoadable(
-    queryAddressInfo(address && address.toLowerCase()),
-  )
+  const result = useRecoilValueLoadable(queryAddressInfo(address))
   const steward = useRecoilValueLoadable(
-    queryStewardInfo(address?.toLowerCase()),
+    queryStewardInfo(address),
     // queryStewardInfo("0x521aacb43d89e1b8ffd64d9ef76b0a1074dedaf8"),
   )
   const recentVotesRes = useRecoilValueLoadable(
-    queryRecentVotes(address?.toLowerCase()),
+    queryRecentVotes(address),
     // queryStewardInfo("0x521aacb43d89e1b8ffd64d9ef76b0a1074dedaf8"),
   )
 
