@@ -21,8 +21,9 @@ import { queryAddressInfo } from "../../selectors/gitcoin"
 import { FLEEK_URL } from "../../constants/fleek"
 import GitCoinHeader from "./PageHeader"
 import { walletState } from "../../atoms/wallet"
-import { queryStewardInfo } from "../../selectors/steward"
+import { queryStewardInfo, queryRecentVotes } from "../../selectors/steward"
 import Delegate from "../delegate"
+import RecentVotes from "./RecentVotes"
 
 const Gitcoin = ({ address }) => {
   const [{ address: connectAddress }] = useRecoilState(walletState)
@@ -34,17 +35,28 @@ const Gitcoin = ({ address }) => {
     queryStewardInfo(address?.toLowerCase()),
     // queryStewardInfo("0x521aacb43d89e1b8ffd64d9ef76b0a1074dedaf8"),
   )
+  const recentVotesRes = useRecoilValueLoadable(
+    queryRecentVotes(address?.toLowerCase()),
+    // queryStewardInfo("0x521aacb43d89e1b8ffd64d9ef76b0a1074dedaf8"),
+  )
 
   const shareUrl = `${FLEEK_URL}/steward/${address}`
   const title = `Thanks for supporting my @gitcoin Steward, please delegate ${address} `
 
-  if (result.state === "loading" || steward.state === "loading") {
+  if (
+    result.state === "loading" ||
+    steward.state === "loading" ||
+    recentVotesRes.state === "loading"
+  ) {
     return <div>Loading...</div>
   }
 
-  if (result.state === "hasError" || steward.state === "hasError") {
-    const error =
-      result.state === "hasError" ? result.contents : steward.contents
+  if (
+    result.state === "hasError" ||
+    steward.state === "hasError" ||
+    recentVotesRes.state === "hasError"
+  ) {
+    const error = result.contents ?? steward.contents ?? recentVotesRes.contents
     return (
       <div>
         Error: <Typography color="error.light">{error.message}</Typography>
@@ -57,6 +69,7 @@ const Gitcoin = ({ address }) => {
 
   const { account, delegators } = result?.contents ?? {}
   const { name = address, image, statement_link } = steward?.contents ?? {}
+  const { accounts: votesAccount } = recentVotesRes?.contents ?? {}
 
   if (!account || !statement_link) {
     return (
@@ -81,6 +94,12 @@ const Gitcoin = ({ address }) => {
 
   const { votes, ballotsCastCount, tokenBalance } = account
 
+  const recentVotes = votesAccount.flatMap(({ participations }) =>
+    participations
+      .filter(({ votes }) => votes.length > 0)
+      .flatMap(({ votes }) => votes),
+  )
+
   return (
     <Container maxWidth="lg">
       <GitCoinHeader
@@ -90,6 +109,7 @@ const Gitcoin = ({ address }) => {
         link={statement_link}
       />
 
+      {/* Organization */}
       <Grid container spacing={3} mt={2}>
         <Grid xs={12} sm={6} md={3} item>
           <Box
@@ -123,6 +143,8 @@ const Gitcoin = ({ address }) => {
           </Card>
         </Grid>
       </Grid>
+
+      {/* Infos */}
       <Box
         display="flex"
         alignItems="center"
@@ -177,6 +199,10 @@ const Gitcoin = ({ address }) => {
           </Card>
         </Grid>
 
+        {/* Recent votes */}
+        <RecentVotes votes={recentVotes} />
+
+        {/* Delegators */}
         <Grid item xs={12}>
           <Box
             display="flex"

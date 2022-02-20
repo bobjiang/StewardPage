@@ -18,3 +18,16 @@ export function getApollo() {
   }
   return client
 }
+
+let withTallyClient: ApolloClient<NormalizedCacheObject>
+export function getWithTallyClient() {
+  if (!withTallyClient) {
+    withTallyClient = new ApolloClient({
+      link: new HttpLink({
+        uri: "https://api.withtally.com/query",
+      }),
+      cache: new InMemoryCache(),
+    })
+  }
+  return withTallyClient
+}
