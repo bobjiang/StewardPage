@@ -48,7 +48,11 @@ const Gitcoin = ({ address }) => {
     steward.state === "loading" ||
     recentVotesRes.state === "loading"
   ) {
-    return <div>Loading...</div>
+    return (
+      <Container maxWidth="lg">
+        <Typography>Loading...</Typography>
+      </Container>
+    )
   }
 
   if (
