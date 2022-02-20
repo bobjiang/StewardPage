@@ -229,15 +229,10 @@ const Gitcoin = ({ address }) => {
                   </Typography>
                 </Box>
                 {delegators.map((item: any, index: any) => {
-                  const itemBalance = item.tokenBalance
-                  console.log(
-                    itemBalance,
-                    tokenBalance,
-                    itemBalance / tokenBalance,
-                  )
-
+                  // Times 100 for percentage calculation
+                  const itemBalance = Number(item.tokenBalance) * 100
                   const id = item.id
-                  if (itemBalance == "0") return
+                  if (itemBalance === 0) return
 
                   return (
                     <Card key={id ?? index}>
@@ -266,8 +261,7 @@ const Gitcoin = ({ address }) => {
                             noWrap
                           >
                             {(
-                              ((itemBalance as any) / (tokenBalance as any)) *
-                              100
+                              itemBalance / 100000000000000000000000000
                             ).toFixed(2) + "%"}
                           </Typography>
                         </ListItem>

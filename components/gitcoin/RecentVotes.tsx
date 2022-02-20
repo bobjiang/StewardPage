@@ -30,8 +30,7 @@ const RecentVotes = ({ votes }) => {
       const votes = abbreviateNumber(
         (+voteFor.weight - +against.weight - +abstain.weight) / 10 ** 18,
       )
-      const againstedVotes =
-        (+against.weight - +abstain.weight - +voteFor.weight) / 10 ** 18
+      const againstedVotes = +against.weight / 10 ** 18
       const formattedAgainstedVotes = abbreviateNumber(
         againstedVotes < 0 ? 0 : againstedVotes,
       )
