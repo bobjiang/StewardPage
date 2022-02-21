@@ -1,1 +1,1 @@
-export const FLEEK_URL="https://shy-dust-6037.on.fleek.co"
+export const FLEEK_URL="https://steward-page.vercel.app/"
