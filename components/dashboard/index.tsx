@@ -102,7 +102,7 @@ const Dashboard = ({ address }) => {
     queryAddressInfo(address && address.toLowerCase()),
   )
   const shareUrl = `${FLEEK_URL}?address=${address}`
-  const title = `Thanks for supporting my @gitcoin Steward, please delegate ${address} `
+  const title = `Thanks for supporting my @gitcoin Steward, please delegate to ${address} `
   const [open, setOpen] = React.useState(true)
   const toggleDrawer = () => {
     setOpen(!open)

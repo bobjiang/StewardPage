@@ -1,1 +1,1 @@
-export const FLEEK_URL="https://steward-page.vercel.app/"
+export const FLEEK_URL="https://www.stewardpage.com/"

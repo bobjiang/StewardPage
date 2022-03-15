@@ -43,7 +43,7 @@ const Gitcoin = ({ address }) => {
   )
 
   const shareUrl = `${FLEEK_URL}/steward/${address}`
-  const title = `Thanks for supporting my @gitcoin Steward, please delegate ${address} `
+  const title = `Thanks for supporting my @gitcoin Steward, please delegate to ${address} `
 
   if (
     result.state === "loading" ||
