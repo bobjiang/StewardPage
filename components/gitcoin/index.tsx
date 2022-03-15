@@ -84,8 +84,8 @@ const Gitcoin = ({ address }) => {
           <Box className="max-w-[77%]">
             <Typography variant="h5" color="error.light">
               {isMySelf
-                ? "You have no $GTC or voting power!"
-                : "This account don't have any voting power."}
+                ? "You have no $GTC or voting power in your address. Please delegate to our steward - https://www.daostewards.xyz/"
+                : "This address doesn't have any voting power. Please delegate to our steward - https://www.daostewards.xyz/"}
             </Typography>
             <NextLink href="/" passHref>
               <Link underline="hover">
