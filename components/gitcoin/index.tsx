@@ -261,7 +261,7 @@ const Gitcoin = ({ address }) => {
                             noWrap
                           >
                             {(
-                              itemBalance / 100000000000000000000000000
+                              itemBalance / votes
                             ).toFixed(2) + "%"}
                           </Typography>
                         </ListItem>
