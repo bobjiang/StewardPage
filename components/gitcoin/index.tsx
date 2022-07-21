@@ -88,24 +88,24 @@ const Gitcoin = ({ address }) => {
   const { accounts: votesAccount } = recentVotesRes?.contents ?? {}
 
   // if (!account || !statement_link) {
-    return (
-      <div className="h-screen flex justify-center">
-        <div className="container sm:mt-16">
-          <Box className="max-w-[77%]">
-            <Typography variant="h5" color="error.light">
-              {isMySelf
-                ? "You have no $GTC or voting power in your address. Please delegate to our steward - https://www.daostewards.xyz/"
-                : "This address doesn't have any voting power. Please delegate to our steward - https://www.daostewards.xyz/"}
-            </Typography>
-            <NextLink href="/" passHref>
-              <Link underline="hover">
-                <Typography variant="h6">Back to home.</Typography>
-              </Link>
-            </NextLink>
-          </Box>
-        </div>
-      </div>
-    )
+    // return (
+    //   <div className="h-screen flex justify-center">
+    //     <div className="container sm:mt-16">
+    //       <Box className="max-w-[77%]">
+    //         <Typography variant="h5" color="error.light">
+    //           {isMySelf
+    //             ? "You have no $GTC or voting power in your address. Please delegate to our steward - https://www.daostewards.xyz/"
+    //             : "This address doesn't have any voting power. Please delegate to our steward - https://www.daostewards.xyz/"}
+    //         </Typography>
+    //         <NextLink href="/" passHref>
+    //           <Link underline="hover">
+    //             <Typography variant="h6">Back to home.</Typography>
+    //           </Link>
+    //         </NextLink>
+    //       </Box>
+    //     </div>
+    //   </div>
+    // )
   // }
   // Taking votes from recentVoteRes
   const recentVotes = votesAccount.flatMap(({ participations }) =>
