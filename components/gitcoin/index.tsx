@@ -87,7 +87,7 @@ const Gitcoin = ({ address }) => {
   const { name = address, image, statement_link } = steward?.contents ?? {}
   const { accounts: votesAccount } = recentVotesRes?.contents ?? {}
 
-  if (!account) {
+  // if (!account || !statement_link) {
     return (
       <div className="h-screen flex justify-center">
         <div className="container sm:mt-16">
@@ -106,7 +106,7 @@ const Gitcoin = ({ address }) => {
         </div>
       </div>
     )
-  }
+  // }
   // Taking votes from recentVoteRes
   const recentVotes = votesAccount.flatMap(({ participations }) =>
     participations
