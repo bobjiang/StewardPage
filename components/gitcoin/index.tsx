@@ -26,9 +26,19 @@ import { queryStewardInfo, queryRecentVotes } from "../../selectors/steward"
 import Delegate from "../delegate"
 import RecentVotes from "./RecentVotes"
 import styles from "./gitcoin.module.css"
+import { ethers, providers } from "ethers"
 
 const Gitcoin = ({ address }) => {
-  const [{ address: connectAddress }] = useRecoilState(walletState)
+  console.log(address);
+  // const [wallet] = useRecoilState(walletState)
+  // const { provider, chainId, address: connectedAddress } = wallet
+  // const web3Provider = new providers.Web3Provider(provider);
+
+  const [{ address: connectAddress, web3Provider}] = useRecoilState(walletState)
+  
+  
+  // ethers.utils.isAddress(address);
+  
   const isMySelf = connectAddress?.toLowerCase() === address?.toLowerCase()
   const result = useRecoilValueLoadable(
     queryAddressInfo(address && address.toLowerCase()),
@@ -77,7 +87,7 @@ const Gitcoin = ({ address }) => {
   const { name = address, image, statement_link } = steward?.contents ?? {}
   const { accounts: votesAccount } = recentVotesRes?.contents ?? {}
 
-  if (!account || !statement_link) {
+  if (!account) {
     return (
       <div className="h-screen flex justify-center">
         <div className="container sm:mt-16">
