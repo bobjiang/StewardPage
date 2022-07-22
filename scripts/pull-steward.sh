@@ -1,0 +1,1 @@
+curl https://raw.githubusercontent.com/mmmgtc/stewards-frontend/main/public/assets/stewards/stewards_data.json --output ./public/stewards_data.json
