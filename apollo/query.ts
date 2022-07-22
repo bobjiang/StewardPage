@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client"
-import StewardCsv from "../public/steward.csv"
+// import StewardCsv from "../public/steward.csv"
+import StewardFile from "../public/stewards_data.json";
 import { getApollo, getWithTallyClient } from "./client"
 
 export const QueryAddressInfoGql = gql`
@@ -205,18 +206,39 @@ type Steward = {
   image: string
 }
 
-const stewardCSVCache = StewardCsv.map((x: Steward) => ({
-  ...x,
-  row: x[""],
-  statement_link: `https://gov.gitcoin.co/t/introducing-stewards-governance/41/${x["statement_post_id"]}`,
-  image: `https://raw.githubusercontent.com/mmmgtc/stewards-v1.0/main/app/assets/images/stewards/${x["image"]}`,
-}))
+const StewardData = StewardFile.data;
+
+const stewardDataCache:Steward[] = [];
+
+StewardData.forEach(x => {
+  let temp:Steward = {
+    address: "",
+    name: "",
+    statement_link: "",
+    image: ""
+  };
+  temp.address = x.address;
+  temp.name = x.name;
+  temp.statement_link = x.statement_post;
+  temp.image = `https://raw.githubusercontent.com/mmmgtc/stewards-frontend/main/public/assets/stewards/webp/${x.profile_image}`
+  stewardDataCache.push(temp);
+});
+
+// old data source
+// const stewardCSVCache = StewardCsv.map((x: Steward) => ({
+//   ...x,
+//   row: x[""],
+//   statement_link: `https://gov.gitcoin.co/t/introducing-stewards-governance/41/${x["statement_post_id"]}`,
+//   image: `https://raw.githubusercontent.com/mmmgtc/stewards-v1.0/main/app/assets/images/stewards/${x["image"]}`,
+// }))
+
 const getSteward = (address: string, stewards: Steward[]) => {
   const steward = stewards.find(
     (x) => x.address?.toLowerCase() === address.toLowerCase(),
   )
   return steward
 }
+
 export async function QueryStewardInfo(address: string) {
-  return getSteward(address, stewardCSVCache as Steward[])
+  return getSteward(address, stewardDataCache)
 }
